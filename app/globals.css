@@ -1,26 +1,128 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-blue: #00A389; /* NEW: Teal/Cyan for freshness */
+  --accent-blue: #007D6D;  /* NEW: Darker Teal for gradients/hover */
+  --light-bg: #f8f9fa;
+  --text-dark: #2D3A44;    /* NEW: Slightly softer dark text */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fdfdfd;
+  color: var(--text-dark);
+  overflow-x: hidden; 
+}
+
+/* 1. MODERN TYPOGRAPHY */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700 !important;
+  letter-spacing: -0.5px;
+  color: var(--primary-blue); /* Headings are now Teal */
+}
+
+/* 2. DYNAMIC BUTTONS (3D Press Effect) */
+.btn-primary {
+  /* Gradient is now Teal to Darker Teal */
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+  border: none;
+  transition: all 0.2s ease-out; 
+  box-shadow: 0 6px 15px rgba(0, 163, 137, 0.4); /* Shadow color updated */
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 10px 25px rgba(0, 163, 137, 0.55);
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--primary-blue) 100%);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px rgba(0, 163, 137, 0.4);
+}
+
+
+.btn-outline-primary {
+  color: var(--primary-blue); /* Outline is Teal */
+  border-color: var(--primary-blue);
+  border-width: 2px;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+/* 3. SMOOTH LINK UNDERLINES */
+a {
+  position: relative;
+  text-decoration: none !important;
+}
+a::after {
+  content: '';
+  position: absolute;
+  width: 0%; 
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-blue); /* Underline is Teal */
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+a:hover::after {
+  width: 100%; 
+}
+
+.navbar a::after {
+    display: none !important;
+}
+
+
+/* 4. MODERN CARDS (Floating Effect) */
+.card {
+  border: none !important;
+  border-radius: 12px !important;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-10px); 
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. NAVBAR POLISH */
+.navbar {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.dropdown-menu {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  animation: fadeInUp 0.3s ease;
+  margin-top: 15px !important;
+}
+
+/* 6. GLOBAL ANIMATION KEYFRAMES */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FINAL GUARANTEED ALIGNMENT FIX (Should be in globals.css for stability) */
+.nav-product-align-override {
+  position: relative;
+  top: -1px !important;
 }
