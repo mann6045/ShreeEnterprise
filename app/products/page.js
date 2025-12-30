@@ -123,7 +123,7 @@ export default function Products() {
                 🔍
               </InputGroup.Text>
               <Form.Control
-                placeholder="Search products by type or application (e.g., 'wet wipes', 'kitchen')"
+                placeholder="Search products "
                 aria-label="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

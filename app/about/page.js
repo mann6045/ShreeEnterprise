@@ -7,7 +7,7 @@ export default function About() {
   
   // Data for the mock client logos
   const clientLogos = [
-    "https://placehold.co/150x60/f0f0f0/666666?text=Grand+Central+Hotels",
+    "https://placehold.co/150x60/f0f0f0/666666?text=Palkhi+Hotels",
     "https://placehold.co/150x60/f0f0f0/666666?text=Apex+Hospitals",
     "https://placehold.co/150x60/f0f0f0/666666?text=Logistics+India",
     "https://placehold.co/150x60/f0f0f0/666666?text=Tech+Park+Solutions",
@@ -52,7 +52,7 @@ export default function About() {
             </Col>
             <Col lg={6} className="mt-4 mt-lg-0">
               <img 
-                src="https://placehold.co/600x400?text=Our+Office+Building" 
+                src="/Main2.jpeg" 
                 alt="Shree Enterprise Headquarters" 
                 className="img-fluid rounded shadow-lg"
               />

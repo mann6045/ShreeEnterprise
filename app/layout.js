@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import AOSClient from '@/components/AOSClient';
 import './globals.css'; 
 
-// Configure the font
 const poppins = Poppins({ 
   subsets: ['latin'], 
   weight: ['300', '400', '600', '700'],
@@ -13,28 +12,22 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: 'PureSoft Industries',
-  description: 'Premium Tissue Manufacturing',
+  title: 'Shree Enterprise | Premium Tissue Manufacturing',
+  description: 'Leading manufacturer of Virgin and Recycled paper products in Mahisagar, Gujarat.',
+  icons: {
+    icon: 'https://assets.vercel.com/image/upload/v1607554388/front/nextjs/favicon/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-100">
-      {/* Set body to be a flex container that stacks items vertically (d-flex flex-column) */}
       <body className={`${poppins.className} d-flex flex-column h-100`}>
-        
         <AOSClient /> 
         <BootstrapNavbar /> 
-        
-        {/*
-          MAIN CONTENT WRAPPER:
-          flex-shrink-0 prevents the main content from shrinking, 
-          and the body's flex properties automatically push the footer down.
-        */}
         <main className="flex-shrink-0">
           {children}
         </main>
-        
         <Footer />
       </body>
     </html>

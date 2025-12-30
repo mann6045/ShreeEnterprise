@@ -1,145 +1,97 @@
 "use client";
 
 import { Container, Row, Col } from 'react-bootstrap';
-import Link from 'next/link';
+
+/**
+ * HIGH-FIDELITY BRAND LOGOS
+ * Accurate, solid SVG paths for maximum visibility.
+ */
+const FBIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+  </svg>
+);
+
+const IGIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+  </svg>
+);
+
+const LIIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+  </svg>
+);
+
+const WAIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.408.002 12.045a11.811 11.811 0 001.591 5.976L0 24l6.117-1.604a11.802 11.802 0 005.93 1.587h.005c6.632 0 12.042-5.412 12.045-12.048a11.772 11.772 0 00-3.219-8.528z" />
+  </svg>
+);
 
 export default function Footer() {
+  const WHATSAPP_NUMBER = "918160675257";
+  const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20Shree%20Enterprise,%20I%20am%20interested%20in%20your%20products.`;
+
   return (
-    <footer className="bg-dark text-light pt-5 pb-3 mt-auto" style={{ backgroundColor: '#1E3140 !important' }}>
+    <footer className="bg-dark text-light pt-5 pb-3 mt-auto" style={{ backgroundColor: '#1E3140' }}>
       <Container>
         <Row className="gy-4">
 
-          {/* COLUMN 1: Brand & About */}
+          {/* Brand & Mission */}
           <Col md={4}>
             <h4 className="fw-bold text-white mb-3">Shree Enterprise</h4>
-            <p className="text-secondary">
+            <p className="text-secondary small">
               Premium tissue manufacturing solutions for retail, commercial, and industrial needs.
               Committed to hygiene and sustainability since 2025.
             </p>
           </Col>
 
-          {/* COLUMN 2: Quick Links */}
+          {/* Quick Navigation */}
           <Col md={2} xs={6}>
-            <h5 className="fw-bold text-white mb-3">Quick Links</h5>
+            <h5 className="fw-bold text-white mb-3">Navigation</h5>
             <ul className="list-unstyled">
-              <li className="mb-2"><Link href="/" className="text-secondary text-decoration-none hover-white">Home</Link></li>
-              <li className="mb-2"><Link href="/products" className="text-secondary text-decoration-none hover-white">Products</Link></li>
-              <li className="mb-2"><Link href="/about" className="text-secondary text-decoration-none hover-white">About Us</Link></li>
-              <li className="mb-2"><Link href="/blog" className="text-secondary text-decoration-none hover-white">Blog</Link></li>
-              <li className="mb-2"><Link href="/contact" className="text-secondary text-decoration-none hover-white">Contact</Link></li>
+              <li className="mb-2"><a href="/" className="text-secondary text-decoration-none hover-teal">Home</a></li>
+              <li className="mb-2"><a href="/products" className="text-secondary text-decoration-none hover-teal">Products</a></li>
+              <li className="mb-2"><a href="/about" className="text-secondary text-decoration-none hover-teal">About Us</a></li>
+              <li className="mb-2"><a href="/contact" className="text-secondary text-decoration-none hover-teal">Contact</a></li>
             </ul>
           </Col>
 
-          {/* COLUMN 3: Contact Info */}
+          {/* Direct Contact */}
           <Col md={3} xs={6}>
-            <h5 className="fw-bold text-white mb-3">Contact Us</h5>
-            <ul className="list-unstyled text-secondary">
-              <li className="mb-2">📍 Ahmedabad, Gujarat</li>
-              <li className="mb-2">📞 +91 98765 43210</li>
+            <h5 className="fw-bold text-white mb-3">Contact Details</h5>
+            <ul className="list-unstyled text-secondary small">
+              <li className="mb-2">📍 Malekpur Chokdi, Mahisagar, GJ</li>
+              <li className="mb-2">📞 +91 81606 75257</li>
               <li className="mb-2">✉️ sales@shree-enterprise.com</li>
             </ul>
           </Col>
 
-          {/* COLUMN 4: Social Media & Legal */}
+          {/* Social Presence with Original Icons */}
           <Col md={3}>
-            <h5 className="fw-bold text-white mb-3">Follow Us</h5>
-
-            <div className="d-flex gap-3 mb-4">
-
-              {/* Facebook Icon */}
-              <a href="#" className="text-white fs-4" aria-label="Facebook">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                  className="bi bi-facebook" viewBox="0 0 16 16">
-                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 
-                  8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 
-                  1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 
-                  0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 
-                  6.75-3.934 6.75-7.951" />
-                </svg>
+            <h5 className="fw-bold text-white mb-3">Join Our Network</h5>
+            <div className="d-flex gap-4 mb-4">
+              <a href="#" className="social-link" aria-label="Facebook">
+                <FBIcon />
               </a>
-
-              {/* Instagram Icon */}
-              <a href="#" className="text-white fs-4" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                  className="bi bi-instagram" viewBox="0 0 16 16">
-                  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 
-                  2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 
-                  .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 
-                  0 5.827 0 8.001c0 2.172.01 2.444.48 3.297.04.852.174 
-                  1.433.372 1.942.205.526.478.972.923 
-                  1.417.444.445.89.719 1.416.923.51.198 
-                  1.09.333 1.942.372C5.555 15.99 5.827 16 
-                  8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 
-                  1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 
-                  10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 
-                  3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42a6.7 6.7 0 0 
-                  0-1.943-.372C10.443.01 10.172 0 7.998 0h.003z" />
-                  <path d="M8 4.11a3.89 3.89 0 1 0 0 7.78 
-                  3.89 3.89 0 0 0 0-7.78zm0 1.44a2.45 
-                  2.45 0 1 1 0 4.9 2.45 2.45 0 0 1 0-4.9z" />
-                </svg>
+              <a href="#" className="social-link" aria-label="Instagram">
+                <IGIcon />
               </a>
-
-              {/* LinkedIn Icon */}
-              <a href="#" className="text-white fs-4" aria-label="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                  className="bi bi-linkedin" viewBox="0 0 16 16">
-                  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 
-                  0 16 .513 16 1.146v13.708c0 .633-.526 
-                  1.146-1.175 1.146H1.175C.526 16 0 
-                  15.487 0 14.854V1.146zm4.943 
-                  12.248V6.169H2.542v7.225h2.401zM3.743 
-                  5.205c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 
-                  0-1.359.54-1.359 1.248 0 .694.521 
-                  1.248 1.359 1.248zM16.904 
-                  9.632c0-3.308-4.608-2.684-5.462-1.134.012-2.181-1.092-3.053-2.216-3.053-1.143 
-                  0-1.943.815-2.572 1.698v-.898H4.268c.03 
-                  6.432 0 7.225 0 7.225h2.386v-4.04c0-1.023.195-2.035 
-                  1.477-2.035 1.265 0 1.296 
-                  1.196 1.296 2.106v3.969h2.386v-4.273z" />
-                </svg>
+              <a href="#" className="social-link" aria-label="LinkedIn">
+                <LIIcon />
               </a>
-
-              {/* ⭐ WhatsApp Icon Added */}
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="text-white fs-4"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  fill="currentColor" className="bi bi-whatsapp" viewBox="0 0 16 16">
-                  <path d="M13.601 2.326A7.854 7.854 0 0 0 8.017.003 
-                  7.76 7.76 0 0 0 .258 
-                  7.76c0 1.368.357 2.706 1.029 
-                  3.89L0 16l4.46-1.273a7.73 7.73 0 0 0 
-                  3.556.906h.003c4.272 
-                  0 7.758-3.486 7.758-7.758a7.73 
-                  7.73 0 0 0-2.176-5.549zM8.02 
-                  14.52a6.7 6.7 0 0 1-3.43-.94l-.246-.146-2.643.756.756-2.574-.16-.264a6.73 
-                  6.73 0 0 1-1.031-3.57c0-3.72 
-                  3.03-6.75 6.75-6.75 1.804 0 
-                  3.497.703 4.773 
-                  1.98a6.71 6.71 0 0 1 1.977 
-                  4.77c-.003 3.72-3.033 
-                  6.74-6.754 6.74zm3.7-5.04c-.2-.1-1.18-.58-1.36-.646-.18-.065-.31-.1-.44.1-.13.2-.5.64-.62.77-.11.13-.23.15-.43.05-.2-.1-.84-.31-1.6-.99-.59-.53-.99-1.18-1.11-1.38-.12-.2-.01-.31.09-.41.09-.09.2-.23.3-.35.1-.12.13-.2.2-.34.07-.15.04-.27-.02-.38-.06-.1-.44-1.06-.6-1.46-.16-.38-.32-.33-.44-.33-.11-.01-.24-.01-.37-.01a.72.72 
-                  0 0 0-.52.24c-.18.2-.68.66-.68 
-                  1.63 0 .97.7 1.91.8 
-                  2.05.1.13 1.37 2.1 3.32 
-                  2.95.47.2.84.32 1.13.41.47.15.9.13 
-                  1.24.08.38-.06 1.18-.48 
-                  1.35-.95.17-.47.17-.87.12-.95-.05-.08-.18-.13-.38-.23z" />
-                </svg>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="social-link wa-accent" aria-label="WhatsApp">
+                <WAIcon />
               </a>
-
             </div>
           </Col>
         </Row>
 
-        <hr className="border-secondary my-4" />
+        <hr className="border-secondary my-4" style={{ opacity: 0.2 }} />
 
-        {/* COPYRIGHT SECTION */}
+        {/* Legal Bar */}
         <Row className="text-center text-md-start">
           <Col md={6}>
             <p className="text-secondary mb-0 small">
@@ -148,22 +100,33 @@ export default function Footer() {
           </Col>
           <Col md={6} className="text-md-end">
             <p className="text-secondary mb-0 small">
-              <Link href="/privacy" className="text-decoration-none text-secondary me-3 hover-white">Privacy Policy</Link>
-              <Link href="/terms" className="text-decoration-none text-secondary hover-white">Terms & Conditions</Link>
+              <a href="/privacy" className="text-decoration-none text-secondary me-3 hover-teal">Privacy Policy</a>
+              <a href="/terms" className="text-decoration-none text-secondary hover-teal">Terms & Conditions</a>
             </p>
           </Col>
         </Row>
       </Container>
 
-      {/* Hover Styling */}
       <style jsx>{`
-        .hover-white:hover {
-            color: var(--primary-blue) !important;
-            padding-left: 5px;
-            transition: all 0.3s ease;
+        .hover-teal:hover {
+            color: #00A389 !important;
+            transition: all 0.2s ease-in-out;
         }
-        footer {
-            background-color: var(--text-dark) !important;
+        .social-link {
+            color: #ffffff;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+        }
+        .social-link:hover {
+            color: #00A389;
+            transform: translateY(-3px);
+            opacity: 1;
+        }
+        .wa-accent:hover {
+            color: #25D366; /* Specific WhatsApp Green on Hover */
         }
       `}</style>
     </footer>
