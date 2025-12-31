@@ -1,12 +1,13 @@
 "use client";
 
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
 // Helper function to create slugs (Moved here to fix 'Module not found' error)
 const toSlug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-// 1. BLOG POST DATA (ADDED FULL CONTENT FOR DETAIL PAGE)
+// 1. BLOG POST DATA (UPDATED BLOG 4 TO GLOBAL LOGISTICS)
 const blogPosts = [
   {
     id: 1,
@@ -50,13 +51,13 @@ const blogPosts = [
   },
   {
     id: 4,
-    title: "Choosing the Right Tissue: 2-Ply vs 3-Ply",
-    date: "August 05, 2025",
-    excerpt: "We break down the science of absorption and softness to help you decide between our standard 2-ply and our premium 3-ply luxury range.",
-    img: "/BlogDemo4.png",
+    title: "Global Supply Chain: Scaling Wholesale for Retail Giants",
+    date: "December 29, 2025",
+    excerpt: "A deep dive into our logistics network that allows us to deliver 50 tons of inventory to ports and distributors worldwide every day.",
+    img: "/Blog4.png",
     content: `
-      <p>The ply count is about more than just thickness; it affects durability, comfort, and cost-effectiveness. **2-Ply** remains the cost-effective champion, offering excellent strength and softness for high-traffic commercial use.</p>
-      <p>However, our **3-Ply Premium Line** offers superior absorbency and a luxurious feel, making it the preferred choice for high-end hospitality and executive offices. We provide consultation services to help clients determine the perfect ply count based on their specific needs and budget.</p>
+      <p>Scaling a manufacturing business requires more than just high-speed machines; it requires a bulletproof logistics network. At Shree Enterprise, our Mahisagar facility is strategically located to serve both domestic markets and international ports, ensuring that our 50-ton daily output reaches its destination without delay.</p>
+      <p>We partner with top-tier logistics firms to provide real-time tracking and optimized shipping routes, reducing lead times for our wholesale partners and retail giants. This infrastructure is what allows us to maintain a zero-downtime supply chain for hospitals, hotels, and distributors globally.</p>
     `,
   },
 ];
@@ -66,43 +67,63 @@ export default function Blog() {
     <section className="py-5 bg-light min-vh-100">
       <Container>
         <div className="text-center mb-5" data-aos="fade-up">
-          <h1 className="fw-bold text-dark">Latest News & Insights</h1>
-          <p className="text-muted">Stay informed on hygiene, sustainability, and manufacturing technology.</p>
+          <h1 className="fw-bold text-dark display-4">Latest News & Insights</h1>
+          <p className="text-muted lead">Stay informed on hygiene, sustainability, and manufacturing technology.</p>
         </div>
 
-        {/* Loop through the 4 posts */}
+        {/* Loop through the 4 posts with alternating layouts */}
         {blogPosts.map((post, index) => (
-          <div key={post.id} className="bg-white p-4 rounded shadow-sm mb-5" data-aos="fade-up" data-aos-delay={index * 100}>
+          <div key={post.id} className="bg-white p-4 rounded shadow-sm mb-5 border-0 hover-lift" data-aos="fade-up" data-aos-delay={index * 100}>
             <Row className="align-items-center">
-              {/* Photo Section */}
+              {/* Photo Section - Alternates left/right based on index */}
               <Col md={6} className={`mb-4 mb-md-0 ${index % 2 !== 0 ? 'order-md-2' : ''}`}>
-                <img 
-                  src={post.img} 
-                  alt={post.title} 
-                  className="img-fluid rounded shadow-sm w-100"
-                  style={{ objectFit: 'cover', height: '300px' }}
-                />
+                <div className="overflow-hidden rounded shadow-sm">
+                  <img 
+                    src={post.img} 
+                    alt={post.title} 
+                    className="img-fluid w-100 transition-transform"
+                    style={{ objectFit: 'cover', height: '350px' }}
+                  />
+                </div>
               </Col>
               
               {/* Description Section */}
               <Col md={6} className={index % 2 !== 0 ? 'order-md-1' : ''}>
-                <small className="text-primary fw-bold text-uppercase">{post.date}</small>
-                <h2 className="fw-bold mt-2 mb-3 h3">{post.title}</h2>
-                <p className="text-muted lead" style={{ fontSize: '1.1rem' }}>
-                  {post.excerpt}
-                </p>
-                {/* Updated link path to use the new local toSlug function */}
-                <Link href={`/blog/${toSlug(post.title)}`} passHref>
-                  <Button variant="outline-dark" className="mt-2">
-                    Read Full Article
-                  </Button>
-                </Link>
+                <div className={index % 2 !== 0 ? 'pe-md-4' : 'ps-md-4'}>
+                  <small className="text-primary fw-bold text-uppercase tracking-widest">{post.date}</small>
+                  <h2 className="fw-bold mt-2 mb-3 h3 text-navy">{post.title}</h2>
+                  <p className="text-muted lead" style={{ fontSize: '1.05rem' }}>
+                    {post.excerpt}
+                  </p>
+                  <Link href={`/blog/${toSlug(post.title)}`} passHref>
+                    <Button variant="outline-dark" className="mt-2 rounded-pill px-4 fw-bold">
+                      Read Full Article
+                    </Button>
+                  </Link>
+                </div>
               </Col>
             </Row>
           </div>
         ))}
 
       </Container>
+
+      <style jsx global>{`
+        .text-navy { color: #1E3140; }
+        .hover-lift {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+        }
+        .transition-transform {
+          transition: transform 0.5s ease;
+        }
+        .hover-lift:hover .transition-transform {
+          transform: scale(1.03);
+        }
+      `}</style>
     </section>
   );
 }

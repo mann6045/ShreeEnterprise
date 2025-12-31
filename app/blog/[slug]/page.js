@@ -4,10 +4,10 @@ import { useParams } from 'next/navigation';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 
-// Helper function to create slugs (Moved here to fix 'Module not found' error)
+// Helper function to create slugs (Must match the logic in blog/page.js)
 const toSlug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-// Data replicated from blog/page.js for lookup (In a real app, this would be a single API call)
+// Data replicated from blog/page.js for lookup
 const blogPosts = [
   {
     id: 1,
@@ -20,9 +20,9 @@ const blogPosts = [
       <p>By integrating bamboo pulp into 40% of our production line, we are offering clients a highly durable and surprisingly soft alternative to traditional wood pulp. This ensures that every bulk order contributes positively to the circular economy and meets the growing demand for eco-certified products.</p>
       <h3 class="mt-4 fw-bold text-primary">Key Benefits of Bamboo Tissue</h3>
       <ul>
-          <li>**Rapid Renewal:** Bamboo regenerates fully in 3-5 months, compared to decades for hardwood trees.</li>
-          <li>**Zero Pesticides:** It naturally resists pests, meaning no harmful chemicals enter our production cycle.</li>
-          <li>**Superior Strength:** Bamboo fibers are naturally long and strong, resulting in tissue that holds up better, even when wet.</li>
+          <li><strong>Rapid Renewal:</strong> Bamboo regenerates fully in 3-5 months, compared to decades for hardwood trees.</li>
+          <li><strong>Zero Pesticides:</strong> It naturally resists pests, meaning no harmful chemicals enter our production cycle.</li>
+          <li><strong>Superior Strength:</strong> Bamboo fibers are naturally long and strong, resulting in tissue that holds up better, even when wet.</li>
       </ul>
       <p>Talk to our sales team today about how you can transition your inventory to our new bamboo line.</p>
     `,
@@ -61,25 +61,27 @@ const blogPosts = [
   },
   {
     id: 4,
-    title: "Choosing the Right Tissue: 2-Ply vs 3-Ply",
-    date: "August 05, 2025",
-    excerpt: "We break down the science of absorption and softness to help you decide between our standard 2-ply and our premium 3-ply luxury range.",
-    img: "/BlogDemo42.png",
+    title: "Global Supply Chain: Scaling Wholesale for Retail Giants",
+    date: "December 29, 2025",
+    excerpt: "A deep dive into our logistics network that allows us to deliver 50 tons of inventory to ports and distributors worldwide every day.",
+    img: "/Blog42.png",
     content: `
-      <p>The ply count is about more than just thickness; it affects durability, comfort, and cost-effectiveness. **2-Ply** remains the cost-effective champion, offering excellent strength and softness for high-traffic commercial use.</p>
-      <p>However, our **3-Ply Premium Line** offers superior absorbency and a luxurious feel, making it the preferred choice for high-end hospitality and executive offices. We provide consultation services to help clients determine the perfect ply count based on their specific needs and budget.</p>
-      <h3 class="mt-4 fw-bold text-primary">Technical Difference</h3>
-      <ul class="list-unstyled">
-        <li>**2-Ply:** Best balance of cost and performance. Ideal for volume ordering.</li>
-        <li>**3-Ply:** Offers 30% greater absorbency and significantly less tearing.</li>
+      <p>Scaling a manufacturing business requires more than just high-speed machines; it requires a bulletproof logistics network. At Shree Enterprise, our Mahisagar facility is strategically located to serve both domestic markets and international ports, ensuring that our 50-ton daily output reaches its destination without delay.</p>
+      <p>We partner with top-tier logistics firms to provide real-time tracking and optimized shipping routes, reducing lead times for our wholesale partners and retail giants. This infrastructure is what allows us to maintain a zero-downtime supply chain for hospitals, hotels, and distributors globally.</p>
+      <h3 class="mt-4 fw-bold text-primary">Logistics & Export Capabilities</h3>
+      <ul>
+          <li><strong>Strategic Location:</strong> Our facility in Mahisagar provides direct access to major state highways and proximity to key maritime ports.</li>
+          <li><strong>Bulk Handling:</strong> Optimized for container loading, ensuring large-scale orders are palletized and shipped within 48 hours of production.</li>
+          <li><strong>Global Standards:</strong> Every export batch is accompanied by international quality certifications required for European and GCC markets.</li>
       </ul>
+      <p>Whether you are a retail chain or an international hygiene distributor, our supply chain is built to grow with your business.</p>
     `,
   },
 ];
 
 export default function BlogDetail() {
   const params = useParams();
-  const slug = params.slug;
+  const slug = params?.slug;
 
   // Find the matching post using the slug
   const post = blogPosts.find(p => toSlug(p.title) === slug);
@@ -108,30 +110,36 @@ export default function BlogDetail() {
                 src={post.img} 
                 alt={post.title} 
                 className="img-fluid rounded shadow-sm w-100 mb-4"
-                style={{ maxHeight: '400px', objectFit: 'cover' }}
+                style={{ maxHeight: '450px', objectFit: 'cover' }}
             />
 
             <Row className="justify-content-center">
                 <Col lg={10}>
-                    <small className="text-primary fw-bold text-uppercase">{post.date}</small>
+                    <small className="text-primary fw-bold text-uppercase tracking-widest">{post.date}</small>
                     <h1 className="fw-bold display-5 mb-3">{post.title}</h1>
                     <p className="lead text-secondary mb-5">{post.excerpt}</p>
                     
-                    {/* The Full Content - Dangerously set inner HTML for structured text */}
+                    {/* The Full Content - Using dangerouslySetInnerHTML for the rich text from our object */}
                     <div 
-                        className="blog-content text-dark mb-5" 
+                        className="blog-content text-dark mb-5 lh-lg" 
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
 
                     <div className="text-center border-top pt-4">
-                         <Link href="/contact" passHref>
-                            <Button variant="primary" size="lg">Contact Sales for Bulk Inquiry</Button>
+                         <Link href="/contact">
+                            <Button variant="primary" size="lg" className="rounded-pill px-5">Contact Sales for Bulk Inquiry</Button>
                         </Link>
                     </div>
                 </Col>
             </Row>
         </Card>
       </Container>
+      
+      <style jsx>{`
+        .blog-content :global(p) { margin-bottom: 1.5rem; }
+        .blog-content :global(ul) { margin-bottom: 1.5rem; }
+        .blog-content :global(li) { margin-bottom: 0.5rem; }
+      `}</style>
     </section>
   );
 }

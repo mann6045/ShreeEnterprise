@@ -107,7 +107,7 @@ export default function Contact() {
                           <Form.Control 
                             type="tel" 
                             name="user_phone" 
-                            placeholder="+91 81606 75257" 
+                            placeholder="+91 9876543210" 
                             required
                             className="py-2 border-2"
                           />
