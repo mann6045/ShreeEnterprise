@@ -15,7 +15,7 @@ export const metadata = {
   title: 'Shree Enterprise | Premium Tissue Manufacturing',
   description: 'Leading manufacturer of Virgin and Recycled paper products in Mahisagar, Gujarat.',
   icons: {
-    icon: 'https://assets.vercel.com/image/upload/v1607554388/front/nextjs/favicon/favicon.ico',
+    icon: '/Logo.png',
   },
 };
 
