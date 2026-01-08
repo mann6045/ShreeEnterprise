@@ -1,76 +1,102 @@
 "use client";
 
-import React from 'react';
-import { Carousel, Container, Row, Col, Card } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Carousel, Container, Row, Col, Card, Badge } from 'react-bootstrap';
 
 export default function Home() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
-    <main>
-      {/* 1. HERO CAROUSEL - Liquid Glass Effect with Entrance Animation */}
+    <main className="overflow-hidden bg-white" suppressHydrationWarning>
+      
+      {/* 1. HERO CAROUSEL - Full Slide Photos with Liquid Glass Text Panels */}
       <section className="p-0">
-        <Carousel fade interval={4000} controls={true} indicators={true}>
+        <Carousel fade interval={5000} controls={true} indicators={true} className="full-slide-carousel">
           
           {/* Slide 1 - Factory Focus */}
-          <Carousel.Item style={{ height: '650px' }}>
-            <div className="d-block w-100 h-100 hero-image-bg" style={{ backgroundImage: 'url("/Main1.png")' }}></div>
-            <Carousel.Caption 
-              className="hero-caption-centered hero-liquid-glass p-5 rounded-4 carousel-caption-float"
-              data-aos="zoom-in"
-              data-aos-duration="1000"
-            >
-              <span className="badge-teal-soft mb-3 px-3 py-2 text-uppercase tracking-widest">Manufacturing Excellence</span>
-              <h1 className="display-3 fw-bold text-navy">State-of-the-Art Production</h1>
-              <p className="fs-4 text-navy opacity-90 fw-medium">Large-scale manufacturing of premium tissue products with German automated precision.</p>
-              <div className="mt-4">
-                 <a href="/products" className="btn btn-teal btn-lg px-5 py-3 rounded-pill fw-bold shadow-sm me-3 text-decoration-none">Our Products</a>
-                 <a href="/contact" className="btn btn-outline-navy btn-lg px-5 py-3 rounded-pill fw-bold text-decoration-none">Get Quote</a>
-              </div>
+          <Carousel.Item className="hero-vh-item">
+            <div className="hero-bg-image" style={{ backgroundImage: 'url("/Main1.png")' }}></div>
+            <div className="hero-overlay-dark"></div>
+            <Carousel.Caption className="hero-caption-content">
+              <Container>
+                <Row>
+                  <Col lg={7} md={10} className="text-start">
+                    <div className="liquid-glass-card p-4 p-md-5" data-aos="fade-right">
+                      <span className="badge-teal-glass mb-3 px-3 py-2 text-uppercase tracking-widest">Manufacturing Excellence</span>
+                      <h1 className="display-3 fw-bold text-white mb-3">State-of-the-Art <span className="text-teal-bright">Production</span></h1>
+                      <p className="fs-4 text-white opacity-90 fw-medium mb-4">Large-scale manufacturing of premium tissue products with German automated precision.</p>
+                      <div className="d-flex gap-3">
+                         <a href="/products" className="btn btn-teal-bright btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg text-decoration-none">Our Products</a>
+                         <a href="/contact" className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold text-decoration-none backdrop-blur-sm">Get Quote</a>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
             </Carousel.Caption>
           </Carousel.Item>
 
           {/* Slide 2 - Softness/Quality Focus */}
-          <Carousel.Item style={{ height: '650px' }}>
-            <div className="d-block w-100 h-100 hero-image-bg" style={{ backgroundImage: 'url("/Main2.jpeg")' }}></div>
-            <Carousel.Caption 
-              className="hero-caption-centered hero-liquid-glass p-5 rounded-4 carousel-caption-float"
-              data-aos="zoom-in"
-            >
-              <span className="badge-teal-soft mb-3 px-3 py-2 text-uppercase tracking-widest">Premium Quality</span>
-              <h1 className="display-3 fw-bold text-navy">Unmatched Softness</h1>
-              <p className="fs-4 text-navy opacity-90 fw-medium">Our 3-ply technology ensures maximum comfort and superior absorbency.</p>
-              <div className="mt-4">
-                 <a href="/products" className="btn btn-teal btn-lg px-5 py-3 rounded-pill fw-bold shadow-sm text-decoration-none">View Catalog</a>
-              </div>
+          <Carousel.Item className="hero-vh-item">
+            <div className="hero-bg-image" style={{ backgroundImage: 'url("/Main2.jpeg")' }}></div>
+            <div className="hero-overlay-dark"></div>
+            <Carousel.Caption className="hero-caption-content">
+              <Container>
+                <Row className="justify-content-end">
+                  <Col lg={7} md={10} className="text-lg-end">
+                    <div className="liquid-glass-card p-4 p-md-5" data-aos="fade-left">
+                      <span className="badge-teal-glass mb-3 px-3 py-2 text-uppercase tracking-widest">Premium Quality</span>
+                      <h1 className="display-3 fw-bold text-white mb-3">Unmatched <span className="text-teal-bright">Softness</span></h1>
+                      <p className="fs-4 text-white opacity-90 fw-medium mb-4">Our 3-ply technology ensures maximum comfort and superior absorbency for clinical and hospitality use.</p>
+                      <div className="d-flex justify-content-lg-end gap-3">
+                         <a href="/products" className="btn btn-teal-bright btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg text-decoration-none">View Catalog</a>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
             </Carousel.Caption>
           </Carousel.Item>
 
           {/* Slide 3 - Sustainability Focus */}
-          <Carousel.Item style={{ height: '650px' }}>
+          <Carousel.Item className="hero-vh-item">
             <div 
-              className="d-block w-100 h-100 hero-image-bg" 
+              className="hero-bg-image" 
               style={{ backgroundImage: 'url("/Main3.png")' }}
               onError={(e) => {
-                e.currentTarget.style.backgroundImage = 'url("https://placehold.co/1920x650/e0f8f5/1E3140?text=Eco-Friendly+Future")';
+                e.currentTarget.style.backgroundImage = 'url("https://placehold.co/1920x1080/1E3140/ffffff?text=Eco-Friendly+Future")';
               }}
             ></div>
-            <Carousel.Caption 
-              className="hero-caption-centered hero-liquid-glass p-5 rounded-4 carousel-caption-float"
-              data-aos="zoom-in"
-            >
-              <span className="badge-teal-soft mb-3 px-3 py-2 text-uppercase tracking-widest">Green Innovation</span>
-              <h1 className="display-3 fw-bold text-navy">Eco-Friendly Future</h1>
-              <p className="fs-4 text-navy opacity-90 fw-medium">Committed to sustainability with 100% biodegradable materials and zero-waste production.</p>
-              <div className="mt-4">
-                 <a href="/about" className="btn btn-teal btn-lg px-5 py-3 rounded-pill fw-bold shadow-sm me-3 text-decoration-none">Our Mission</a>
-                 <a href="/contact" className="btn btn-outline-navy btn-lg px-5 py-3 rounded-pill fw-bold text-decoration-none">Bulk Inquiry</a>
-              </div>
+            <div className="hero-overlay-dark"></div>
+            <Carousel.Caption className="hero-caption-content">
+              <Container>
+                <Row>
+                  <Col lg={7} md={10} className="text-start">
+                    <div className="liquid-glass-card p-4 p-md-5" data-aos="zoom-in">
+                      <span className="badge-teal-glass mb-3 px-3 py-2 text-uppercase tracking-widest">Green Innovation</span>
+                      <h1 className="display-3 fw-bold text-white mb-3">Eco-Friendly <span className="text-teal-bright">Future</span></h1>
+                      <p className="fs-4 text-white opacity-90 fw-medium mb-4">Committed to sustainability with 100% biodegradable materials and zero-waste production.</p>
+                      <div className="d-flex gap-3">
+                         <a href="/about" className="btn btn-teal-bright btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg text-decoration-none">Our Mission</a>
+                         <a href="/contact" className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold text-decoration-none backdrop-blur-sm">Bulk Inquiry</a>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
             </Carousel.Caption>
           </Carousel.Item>
 
         </Carousel>
       </section>
 
-      {/* 2. STATS BAR - Updated to remove 50T */}
+      {/* 2. STATS BAR - EXACTLY AS PER YOUR OLDER CODE */}
       <div className="bg-navy py-4 shadow-lg">
         <Container>
           <Row className="text-center text-white">
@@ -94,7 +120,7 @@ export default function Home() {
         </Container>
       </div>
 
-      {/* 3. WELCOME SECTION */}
+      {/* 3. WELCOME SECTION - EXACTLY AS PER YOUR OLDER CODE */}
       <section className="py-5 text-center bg-light" data-aos="fade-up">
         <Container>
           <Row className="justify-content-center">
@@ -112,7 +138,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 4. FEATURE CARDS */}
+      {/* 4. FEATURE CARDS - EXACTLY AS PER YOUR OLDER CODE */}
       <section className="py-5 bg-white">
         <Container>
           <Row>
@@ -141,7 +167,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 5. WHY CHOOSE US - Updated to remove 50T statement */}
+      {/* 5. WHY CHOOSE US - EXACTLY AS PER YOUR OLDER CODE */}
       <section className="py-5 bg-light overflow-hidden">
         <Container>
           <Row className="align-items-center">
@@ -185,31 +211,91 @@ export default function Home() {
       <style jsx global>{`
         :root {
           --teal: #00A389;
+          --teal-bright: #00D1B2;
           --navy: #1E3140;
-          --glass-light: rgba(255, 255, 255, 0.45);
+          --glass-surface: rgba(255, 255, 255, 0.15);
         }
+
         .text-navy { color: var(--navy) !important; }
         .bg-navy { background-color: var(--navy) !important; }
         .text-teal { color: var(--teal) !important; }
-        .btn-teal { background-color: var(--teal); border: none; color: white; transition: 0.3s; }
-        .btn-teal:hover { background-color: #008f77; color: white; transform: translateY(-2px); }
-        .btn-outline-navy { color: var(--navy); border: 2px solid var(--navy); transition: 0.3s; }
-        .btn-outline-navy:hover { background-color: var(--navy); color: white; transform: translateY(-2px); }
-        .hero-image-bg { background-size: cover; background-position: center; width: 100%; height: 100%; }
-        .hero-caption-centered { bottom: 50% !important; transform: translateY(50%); max-width: 850px; margin: 0 auto; left: 0; right: 0; z-index: 10; }
-        .hero-liquid-glass { 
-          background: var(--glass-light) !important; 
-          backdrop-filter: blur(15px) saturate(180%); 
-          -webkit-backdrop-filter: blur(15px) saturate(180%); 
-          border: 1px solid rgba(255, 255, 255, 0.4); 
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+        .text-teal-bright { color: var(--teal-bright) !important; }
+        
+        .btn-teal-bright { 
+          background-color: var(--teal); 
+          border: none; 
+          color: white !important; 
+          transition: all 0.3s ease; 
         }
-        .badge-teal-soft { background: rgba(0, 163, 137, 0.15); color: var(--teal); border: 1px solid rgba(0, 163, 137, 0.3); border-radius: 50px; font-weight: 700; font-size: 0.75rem; }
+        .btn-teal-bright:hover { 
+          background-color: #008f77; 
+          transform: translateY(-3px); 
+          box-shadow: 0 10px 20px rgba(0, 163, 137, 0.3);
+        }
+
+        .btn-teal { background-color: var(--teal); border: none; color: white !important; transition: 0.3s; }
+        .btn-teal:hover { background-color: #008f77; color: white !important; transform: translateY(-2px); }
+        .btn-outline-navy { color: var(--navy); border: 2px solid var(--navy); transition: 0.3s; }
+        .btn-outline-navy:hover { background-color: var(--navy); color: white !important; transform: translateY(-2px); }
+
+        /* FULL SLIDE PHOTO STYLES */
+        .hero-vh-item { height: 85vh; min-height: 650px; position: relative; overflow: hidden; }
+        
+        .hero-bg-image { 
+          position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+          background-size: cover; background-position: center; 
+          transition: transform 10s ease; z-index: 1;
+        }
+        
+        .full-slide-carousel .active .hero-bg-image {
+          transform: scale(1.1);
+        }
+
+        .hero-overlay-dark {
+          position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+          background: linear-gradient(to right, rgba(30, 49, 64, 0.8) 0%, rgba(30, 49, 64, 0.2) 60%, transparent 100%);
+          z-index: 2;
+        }
+
+        .hero-caption-content {
+          bottom: 0 !important; top: 0 !important;
+          display: flex; align-items: center; justify-content: center;
+          left: 0; right: 0; z-index: 10;
+        }
+
+        /* LIQUID GLASS CARD EFFECT */
+        .liquid-glass-card {
+          background: var(--glass-surface);
+          backdrop-filter: blur(25px) saturate(160%);
+          -webkit-backdrop-filter: blur(25px) saturate(160%);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 35px;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .badge-teal-glass { 
+          background: rgba(0, 209, 178, 0.2); 
+          color: var(--teal-bright); 
+          border: 1px solid rgba(0, 209, 178, 0.4); 
+          border-radius: 50px; 
+          font-weight: 700; 
+          font-size: 0.8rem; 
+        }
+
         .underline-teal { width: 60px; height: 4px; background: var(--teal); border-radius: 2px; }
         .hover-shadow { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .hover-shadow:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; }
-        @keyframes float { 0%, 100% { transform: translatey(50%); } 50% { transform: translatey(48%); } }
-        .carousel-caption-float { animation: float 4s ease-in-out infinite; }
+
+        .backdrop-blur-sm { backdrop-filter: blur(4px); }
+
+        @media (max-width: 991px) {
+          .hero-vh-item { height: auto; padding: 100px 0; }
+          .hero-bg-image { height: 100%; }
+          .hero-overlay-dark { background: rgba(30, 49, 64, 0.85); }
+          .hero-caption-content { position: relative !important; top: auto !important; bottom: auto !important; padding: 40px 0; }
+          .liquid-glass-card { border-radius: 20px; padding: 2rem !important; }
+          .display-3 { font-size: 2.5rem; }
+        }
       `}</style>
     </main>
   );

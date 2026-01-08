@@ -1,252 +1,291 @@
 "use client";
 
-import { Container, Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
-import Link from 'next/link';
-import { useState } from 'react'; // Importing useState for search functionality
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Button, Badge, Nav } from 'react-bootstrap';
 
-export default function Products() {
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  // UPDATED PRODUCT LIST WITH NEW SLUGS, TITLES, AND TAGS
-  const products = [
-    { 
-      id: 1, 
-      slug: "m-fold-virgin", 
-      title: "M-Fold Tissue (Virgin)", 
-      tags: "m fold, hand towel, virgin, soft, 27x27, 30x30",
-      img: "/Product1.png", 
-      overlayColor: "#00A389", 
-      subProducts: ["Virgin Soft", "27x27", "30x30", "2-Ply"] 
-    },
-    { 
-      id: 2, 
-      slug: "m-fold-recycled", 
-      title: "M-Fold Tissue (Recycled)", 
-      tags: "m fold, recycled, soft, 29x29, 33x33",
-      img: "/Product2.png", 
-      overlayColor: "#CC9900", 
-      subProducts: ["Recycled Soft", "29x29", "33x33", "Cost-Effective"] 
-    },
-    { 
-      id: 3, 
-      slug: "pop-up-tissue", 
-      title: "Pop Up Tissue", 
-      tags: "pop up, facial, virgin, soft, 20x10, 27x27",
-      img: "Product3.png", 
-      overlayColor: "#00BCD4", 
-      subProducts: ["Virgin Soft", "Inter-Folded", "20x10", "27x27"] 
-    },
-    { 
-      id: 4, 
-      slug: "toilet-roll", 
-      title: "Toilet Roll", 
-      tags: "toilet, roll, bathroom, washroom, virgin",
-      img: "/Product4.png", 
-      overlayColor: "#00A389", 
-      subProducts: ["Virgin Soft", "Septic Safe", "3-Ply"] 
-    },
-    { 
-      id: 5, 
-      slug: "box-tissues", 
-      title: "Box Tissues", 
-      tags: "box, facial, virgin, soft, 20x20",
-      img: "/Product5.png", 
-      overlayColor: "#00BCD4", 
-      subProducts: ["Virgin Soft", "20x20", "Hypoallergenic"] 
-    },
-    { 
-      id: 6, 
-      slug: "pocket-tissues", 
-      title: "Pocket Tissues", 
-      tags: "pocket, portable, travel, facial, virgin",
-      img: "/Product6.png", 
-      overlayColor: "#00BCD4", 
-      subProducts: ["Virgin Soft", "3-Ply", "Portable"] 
-    },
-    { 
-      id: 7, 
-      slug: "kitchen-towels", 
-      title: "Kitchen Towels", 
-      tags: "kitchen, recycled, soft, 36x36, 40x40",
-      img: "/Product7.png", 
-      overlayColor: "#FFC107", 
-      subProducts: ["Recycled Soft", "40x40", "High Absorbency"] 
-    },
-    { 
-      id: 8, 
-      slug: "paper-towels", 
-      title: "Paper Towels (Industrial)", 
-      tags: "paper towel, hard, industrial, recycled, 33x33, 36x36",
-      img: "/Product8.png", 
-      overlayColor: "#CC9900", 
-      subProducts: ["Recycled Hard", "High Wet Strength", "C-Fold/Interfold"] 
-    },
-    { 
-      id: 9, 
-      slug: "wet-wipes", 
-      title: "Wet Tissues (Wipes)", 
-      tags: "wet, wipes, non-woven, disinfectant, baby",
-      img: "/Product9.png", 
-      overlayColor: "#4CAF50", 
-      subProducts: ["Non-Woven", "Disinfectant", "Baby Safe"] 
-    },
-  ];
+const products = [
+  {
+    id: 1,
+    slug: "m-fold-virgin",
+    category: "M-Fold",
+    name: "M-Fold Tissue (Virgin)",
+    description: "Premium 100% Virgin pulp hand towels. High absorbency and clinical softness.",
+    specs: ["Virgin Soft", "27x27 / 30x30", "2-Ply Construction"],
+    image: "/Product1.png",
+    tag: "Best Seller"
+  },
+  {
+    id: 2,
+    slug: "m-fold-recycled",
+    category: "M-Fold",
+    name: "M-Fold Tissue (Recycled)",
+    description: "Eco-friendly, sustainable hand towels designed for high-traffic commercial areas.",
+    specs: ["Recycled Soft", "29x29 / 33x33", "Cost-Effective"],
+    image: "/Product2.png",
+    tag: "Eco-Friendly"
+  },
+  {
+    id: 3,
+    slug: "pop-up-tissue",
+    category: "Facial",
+    name: "Pop Up Tissue",
+    description: "Convenient pop-up dispenser pack. Ideal for offices, hospitals, and cars.",
+    specs: ["Virgin Soft", "Inter-Folded", "20x10 / 27x27"],
+    image: "/Product3.png",
+    tag: "Clinical"
+  },
+  {
+    id: 4,
+    slug: "toilet-roll",
+    category: "Rolls",
+    name: "Toilet Roll",
+    description: "Ultra-soft tissue with core-stabilized technology for hospitality and home use.",
+    specs: ["Virgin Soft", "Septic Safe", "3-Ply Premium"],
+    image: "/Product4.png",
+    tag: "Hospitality"
+  },
+  {
+    id: 5,
+    slug: "box-tissues",
+    category: "Facial",
+    name: "Box Tissues",
+    description: "Premium facial tissues in a protective box. Hypoallergenic and ultra-soft.",
+    specs: ["Virgin Soft", "20x20 Size", "Hypoallergenic"],
+    image: "/Product5.png",
+    tag: "Premium"
+  },
+  {
+    id: 6,
+    slug: "pocket-tissues",
+    category: "Facial",
+    name: "Pocket Tissues",
+    description: "On-the-go hygiene. Compact packs that fit easily in pockets or travel bags.",
+    specs: ["Virgin Soft", "3-Ply Strength", "Portable Packs"],
+    image: "/Product6.png",
+    tag: "Travel"
+  },
+  {
+    id: 7,
+    slug: "kitchen-towels",
+    category: "Kitchen",
+    name: "Kitchen Towels",
+    description: "Heavy-duty towels designed to absorb oil and water instantly in kitchens.",
+    specs: ["Recycled Soft", "40x40 Size", "High Absorbency"],
+    image: "/Product7.png",
+    tag: "Absorbent"
+  },
+  {
+    id: 8,
+    slug: "paper-towels",
+    category: "Industrial",
+    name: "Paper Towels (Industrial)",
+    description: "Hard-wearing industrial towels with high wet strength for heavy usage.",
+    specs: ["Recycled Hard", "High Wet Strength", "C-Fold / Interfold"],
+    image: "/Product8.png",
+    tag: "Industrial"
+  },
+  {
+    id: 9,
+    slug: "wet-wipes",
+    category: "Medical",
+    name: "Wet Tissues (Wipes)",
+    description: "Clinical grade non-woven disinfectant wipes for healthcare and personal use.",
+    specs: ["Non-Woven Fabric", "Disinfectant Solution", "Baby & Skin Safe"],
+    image: "/Product9.png",
+    tag: "New Launch"
+  }
+];
 
-  // Logic to filter products based on search term
-  const filteredProducts = products.filter(product => {
-    const term = searchTerm.toLowerCase();
-    return (
-      product.title.toLowerCase().includes(term) ||
-      product.tags.toLowerCase().includes(term)
-    );
-  });
+const categories = ["All", "M-Fold", "Rolls", "Facial", "Kitchen", "Industrial", "Medical"];
+
+export default function ProductsPage() {
+  const [filter, setFilter] = useState("All");
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const filteredProducts = filter === "All" 
+    ? products 
+    : products.filter(p => p.category === filter);
 
   return (
-    <section className="bg-light min-vh-100">
-      
-      {/* 1. DYNAMIC HERO HEADER */}
-      <div className="product-hero-header py-5 mb-4 shadow-sm">
-        <Container data-aos="fade-down">
-          <h1 className="fw-bold display-5 text-white">The Shree Enterprise Catalog</h1>
-          <p className="lead text-white-50">
-            Explore our range of hygienic, quality paper products. Click any category for technical specifications and bulk ordering.
+    <main className="bg-white min-vh-100 pb-5" suppressHydrationWarning>
+      {/* 1. HEADER SECTION */}
+      <section className="py-5 bg-light border-bottom">
+        <Container className="text-center" data-aos="fade-down">
+          <Badge bg="primary" className="mb-2 px-3 py-2 bg-teal">Digital Catalogue</Badge>
+          <h1 className="display-4 fw-bold text-navy mb-3">Hygiene Without Compromise</h1>
+          <p className="lead text-secondary mx-auto" style={{ maxWidth: '750px' }}>
+            Explore our range of premium tissue solutions manufactured with German automated precision 
+            in Mahisagar, Gujarat.
           </p>
+        </Container>
+      </section>
+
+      {/* 2. STEADY (STICKY) FILTER NAVIGATION */}
+      <div 
+        className="bg-white border-bottom shadow-sm py-3 sticky-nav-wrapper" 
+        style={{ 
+          position: 'sticky',
+          top: '0px', 
+          zIndex: 1020, 
+          backgroundColor: '#ffffff'
+        }}
+      >
+        <Container>
+          <Nav 
+            variant="pills" 
+            className="justify-content-center gap-2 overflow-auto flex-nowrap pb-1 category-nav-container"
+          >
+            {categories.map(cat => (
+              <Nav.Item key={cat}>
+                <Nav.Link 
+                  active={filter === cat}
+                  onClick={() => setFilter(cat)}
+                  className={`rounded-pill px-4 fw-bold text-nowrap transition-all ${
+                    filter === cat ? 'bg-teal shadow' : 'text-navy hover-bg-light'
+                  }`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {cat}
+                </Nav.Link>
+              </Nav.Item>
+            ))}
+          </Nav>
         </Container>
       </div>
 
-      <Container>
-        {/* 2. SEARCH AND FILTER BAR */}
-        <Row className="justify-content-center mb-5" data-aos="fade-up" data-aos-delay="100">
-          <Col lg={8}>
-            <InputGroup size="lg" className="shadow-sm rounded-pill overflow-hidden">
-              <InputGroup.Text id="search-icon" className="bg-white border-0 ps-4">
-                🔍
-              </InputGroup.Text>
-              <Form.Control
-                placeholder="Search products "
-                aria-label="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border-0 py-3 pe-4"
-              />
-            </InputGroup>
-          </Col>
-        </Row>
-        
-        {/* 3. PRODUCT GRID */}
-        <div className="text-center mb-5">
-          <h2 className="fw-bold text-dark" data-aos="fade-up">Available Categories ({filteredProducts.length})</h2>
-        </div>
-
-        <Row className="mb-5">
-          {filteredProducts.map((product, index) => (
-            <Col md={4} className="mb-4" key={product.id} data-aos="zoom-in" data-aos-delay={index * 100}>
-              
-              <Link href={`/products/${product.slug}`} className="text-decoration-none">
-                
-                <div className="product-card-wrapper">
-                  <Card className="border-0 shadow-lg h-100 overflow-hidden product-card">
-                    
-                    <Card.Img 
-                      variant="top" 
-                      src={product.img} 
-                      className="product-img" 
+      {/* 3. PRODUCT GRID */}
+      <section className="py-5">
+        <Container>
+          <Row className="g-4">
+            {filteredProducts.map((product) => (
+              <Col lg={4} md={6} key={product.id} data-aos="fade-up">
+                <Card className="h-100 border-0 shadow-sm product-card overflow-hidden rounded-4">
+                  <div className="position-relative overflow-hidden">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="card-img-top product-zoom-img"
+                      style={{ height: '300px', objectFit: 'cover' }}
+                      onError={(e) => { e.currentTarget.src = `https://placehold.co/600x600/1E3140/ffffff?text=${product.name}`; }}
                     />
-                    
-                    <Card.Footer className="bg-white text-center py-3 border-0">
-                      <h5 className="fw-bold mb-0 text-dark">{product.title}</h5>
-                    </Card.Footer>
-
-                    {/* Hover Overlay - Color is now dynamic and more vivid */}
-                    <div className="product-overlay" style={{ backgroundColor: product.overlayColor }}>
-                      <div className="text-center text-white px-3">
-                        <h4 className="fw-bold mb-3 border-bottom border-white pb-2 d-inline-block">
-                          {product.title}
-                        </h4>
-                        <ul className="list-unstyled mt-3 text-start">
-                          {product.subProducts.map((item, subIndex) => (
-                            <li key={subIndex} className="mb-1 fs-6 text-white">• {item}</li>
+                    <Badge className="position-absolute top-0 end-0 m-3 bg-teal shadow-sm">
+                      {product.tag}
+                    </Badge>
+                  </div>
+                  <Card.Body className="p-4 d-flex flex-column">
+                    <div className="flex-grow-1 text-start">
+                      <small className="text-teal fw-bold text-uppercase tracking-widest">{product.category}</small>
+                      <h4 className="fw-bold text-navy mt-1 mb-3">{product.name}</h4>
+                      <p className="text-muted small mb-4">{product.description}</p>
+                      
+                      <div className="bg-light p-3 rounded-3 mb-4">
+                        <h6 className="small fw-bold text-navy mb-2 uppercase tracking-wide">Technical Specs:</h6>
+                        <ul className="list-unstyled mb-0 small text-secondary">
+                          {product.specs.map((spec, i) => (
+                            <li key={i} className="mb-1 d-flex align-items-center">
+                              <span className="text-teal me-2">✓</span> {spec}
+                            </li>
                           ))}
                         </ul>
-                        <span className="btn btn-light btn-sm mt-3 rounded-pill px-4 fw-bold text-dark">View Details</span>
                       </div>
                     </div>
-
-                  </Card>
-                </div>
-
-              </Link>
-            </Col>
-          ))}
+                    <Button 
+                      href={`/products/${product.slug}`}
+                      className="btn-teal w-100 rounded-pill fw-bold py-2 mt-auto text-decoration-none shadow-sm"
+                    >
+                      View Full Details
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
           
-          {/* Show message if no products match */}
           {filteredProducts.length === 0 && (
-            <Col xs={12} className="text-center py-5">
-                <h3 className="text-muted">No products found matching "{searchTerm}"</h3>
-                <p className="text-secondary">Please try a different search term or browse our categories above.</p>
-            </Col>
+            <div className="text-center py-5">
+              <h3 className="text-muted">No products found in this category.</h3>
+              <Button variant="outline-primary" onClick={() => setFilter("All")} className="mt-3 rounded-pill px-4">See All Products</Button>
+            </div>
           )}
+        </Container>
+      </section>
 
-        </Row>
-      </Container>
+      {/* 4. CALL TO ACTION */}
+      <section className="py-5">
+        <Container>
+          <div className="bg-navy text-white rounded-5 p-5 text-center shadow-lg" data-aos="zoom-in">
+            <h2 className="fw-bold mb-3 display-6">Looking for Custom Branding?</h2>
+            <p className="lead opacity-75 mb-4 mx-auto" style={{ maxWidth: '700px' }}>
+              We offer private labeling and custom size manufacturing for hotels, hospitals, and retail chains. Get direct factory pricing today.
+            </p>
+            <div className="d-flex flex-wrap justify-content-center gap-3">
+              <Button variant="outline-light" className="rounded-pill px-5 py-2 fw-bold border-2" href="/contact">Get a Quote</Button>
+              <Button variant="light" className="text-navy rounded-pill px-5 py-2 fw-bold" href="https://wa.me/918160675257">WhatsApp Us</Button>
+            </div>
+          </div>
+        </Container>
+      </section>
 
-      {/* Internal CSS for the Attractive Look */}
       <style jsx global>{`
-        /* 1. Hero Header Styling - Uses Teal variables */
-        .product-hero-header {
-            background-color: var(--primary-blue);
-            background-image: linear-gradient(180deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
-            border-bottom: 5px solid var(--accent-blue);
+        .bg-teal { background-color: #00A389 !important; }
+        .text-teal { color: #00A389 !important; }
+        .text-navy { color: #1E3140 !important; }
+        .bg-navy { background-color: #1E3140 !important; }
+        
+        .btn-teal {
+          background-color: #00A389;
+          border: none;
+          color: white;
+          transition: all 0.3s ease;
+        }
+        .btn-teal:hover {
+          background-color: #008f77;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 163, 137, 0.3);
+          color: white;
         }
 
-        /* 2. Card Wrapper Setup */
-        .product-card-wrapper {
-          position: relative;
-          cursor: pointer;
-          height: 100%;
+        .hover-bg-light:hover {
+          background-color: #f8f9fa;
         }
+
         .product-card {
-           transform: perspective(1000px); /* Enable 3D transform */
-           transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.4, 1), box-shadow 0.6s ease;
+          transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+        }
+        .product-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
         }
 
-        /* 3. Card 3D Hover Effect */
-        .product-card-wrapper:hover .product-card {
-          transform: perspective(1000px) translateY(-5px) rotateX(2deg); /* Lift and slight tilt */
-          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        /* 4. Image Transition */
-        .product-img {
-          height: 300px;
-          object-fit: cover;
+        .product-zoom-img {
           transition: transform 0.6s ease;
         }
-        .product-card-wrapper:hover .product-img {
-          transform: scale(1.05);
+        .product-card:hover .product-zoom-img {
+          transform: scale(1.08);
         }
 
-        /* 5. Overlay Styling (Color is now dynamic via inline style) */
-        .product-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0; 
-          transition: opacity 0.4s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: rgba(0, 0, 0, 0.8); /* Fallback opacity */
-          padding: 1rem;
+        .nav-link.active {
+          box-shadow: 0 4px 12px rgba(0, 163, 137, 0.3);
         }
 
-        /* 6. Show Overlay on Hover */
-        .product-card-wrapper:hover .product-overlay {
-          opacity: 1;
+        .category-nav-container::-webkit-scrollbar {
+          height: 0px;
+          display: none;
+        }
+        
+        .tracking-widest { letter-spacing: 0.1em; }
+        .tracking-wide { letter-spacing: 0.05em; }
+        .text-nowrap { white-space: nowrap; }
+        .transition-all { transition: all 0.2s ease-in-out; }
+
+        .sticky-nav-wrapper {
+            transition: top 0.3s;
         }
       `}</style>
-    </section>
+    </main>
   );
 }
