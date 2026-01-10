@@ -65,7 +65,7 @@ export default function Footer() {
             <ul className="list-unstyled text-secondary small">
               <li className="mb-2">📍 Malekpur Chokdi, Mahisagar, GJ</li>
               <li className="mb-2">📞 +91 81606 75257</li>
-              <li className="mb-2">✉️ sales@shree-enterprise.com</li>
+              <li className="mb-2">✉️ sales@shreeenterpriseglobal.com</li>
             </ul>
           </Col>
 

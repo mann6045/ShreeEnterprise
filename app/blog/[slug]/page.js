@@ -1,13 +1,9 @@
-"use client";
+import React from 'react';
 
-import { useParams } from 'next/navigation';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import Link from 'next/link';
-
-// Helper function to create slugs (Must match the logic in blog/page.js)
+// Helper function to create slugs (Must match the logic used in the blog list)
 const toSlug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-// Data replicated from blog/page.js for lookup
+// Data replicated for lookup and static generation
 const blogPosts = [
   {
     id: 1,
@@ -18,7 +14,7 @@ const blogPosts = [
     content: `
       <p>The global tissue industry is undergoing a sustainability revolution, and bamboo is leading the charge. Bamboo is one of the fastest-growing plants on earth, requiring significantly less water and no pesticides to thrive. For Shree Enterprise, this shift represents more than just a trend—it's a core commitment to our planet.</p>
       <p>By integrating bamboo pulp into 40% of our production line, we are offering clients a highly durable and surprisingly soft alternative to traditional wood pulp. This ensures that every bulk order contributes positively to the circular economy and meets the growing demand for eco-certified products.</p>
-      <h3 class="mt-4 fw-bold text-primary">Key Benefits of Bamboo Tissue</h3>
+      <h3 class="mt-4 fw-bold text-primary" style="color: #00A389 !important;">Key Benefits of Bamboo Tissue</h3>
       <ul>
           <li><strong>Rapid Renewal:</strong> Bamboo regenerates fully in 3-5 months, compared to decades for hardwood trees.</li>
           <li><strong>Zero Pesticides:</strong> It naturally resists pests, meaning no harmful chemicals enter our production cycle.</li>
@@ -36,15 +32,6 @@ const blogPosts = [
     content: `
       <p>Automation is not just about speed; it's about unparalleled hygiene and consistency. Our new German-engineered machinery operates in a closed-loop environment, ensuring the tissue remains untouched by human hands from the raw material stage to final packaging.</p>
       <p>This massive infrastructure investment allows Shree Enterprise to handle orders of any scale, providing the confidence that every unit you receive meets the same exacting standards. Our capacity now positions us as the ideal partner for large international distributors.</p>
-      <h3 class="mt-4 fw-bold text-primary">Technology Highlights</h3>
-      <div class="row">
-        <div class="col-md-6">
-          <p><strong>Precision Cutting:</strong> Microscopic blade accuracy minimizes waste and guarantees uniform sheet size across all products.</p>
-        </div>
-        <div class="col-md-6">
-          <p><strong>Energy Efficiency:</strong> The new system reduces energy consumption by 15% compared to our previous line, aligning with our sustainability goals.</p>
-        </div>
-      </div>
     `,
   },
   {
@@ -54,9 +41,8 @@ const blogPosts = [
     excerpt: "How we ensure every roll is sterilized and safe for family use, focusing on our new UV-C sterilization process.",
     img: "/hygiene.png",
     content: `
-      <p>Hygiene is non-negotiable. Our new **UV-C sterilization process** is integrated directly into the final packaging stage. This powerful light treatment eradicates 99.9% of bacteria and viruses, ensuring a sterile product before it reaches your customer.</p>
+      <p>Hygiene is non-negotiable. Our new UV-C sterilization process is integrated directly into the final packaging stage. This powerful light treatment eradicates 99.9% of bacteria and viruses, ensuring a sterile product before it reaches your customer.</p>
       <p>We pride ourselves on going beyond industry standards to deliver products that protect public health and safety. Our dedicated quality control lab conducts hourly tests on all batches.</p>
-      <p>The final layer of protection involves tamper-proof, sealed packaging which guarantees the product remains sterile until opened by the end-user.</p>
     `,
   },
   {
@@ -64,82 +50,94 @@ const blogPosts = [
     title: "Global Supply Chain: Scaling Wholesale for Retail Giants",
     date: "December 29, 2025",
     excerpt: "A deep dive into our logistics network that allows us to deliver 50 tons of inventory to ports and distributors worldwide every day.",
-    img: "/Blog42.png",
+    img: "/Blog4.png",
     content: `
       <p>Scaling a manufacturing business requires more than just high-speed machines; it requires a bulletproof logistics network. At Shree Enterprise, our Mahisagar facility is strategically located to serve both domestic markets and international ports, ensuring that our 50-ton daily output reaches its destination without delay.</p>
       <p>We partner with top-tier logistics firms to provide real-time tracking and optimized shipping routes, reducing lead times for our wholesale partners and retail giants. This infrastructure is what allows us to maintain a zero-downtime supply chain for hospitals, hotels, and distributors globally.</p>
-      <h3 class="mt-4 fw-bold text-primary">Logistics & Export Capabilities</h3>
-      <ul>
-          <li><strong>Strategic Location:</strong> Our facility in Mahisagar provides direct access to major state highways and proximity to key maritime ports.</li>
-          <li><strong>Bulk Handling:</strong> Optimized for container loading, ensuring large-scale orders are palletized and shipped within 48 hours of production.</li>
-          <li><strong>Global Standards:</strong> Every export batch is accompanied by international quality certifications required for European and GCC markets.</li>
-      </ul>
-      <p>Whether you are a retail chain or an international hygiene distributor, our supply chain is built to grow with your business.</p>
     `,
   },
 ];
 
-export default function BlogDetail() {
-  const params = useParams();
-  const slug = params?.slug;
+/**
+ * MANDATORY: generateStaticParams handles the Static Export for Hostinger.
+ */
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: toSlug(post.title),
+  }));
+}
 
-  // Find the matching post using the slug
-  const post = blogPosts.find(p => toSlug(p.title) === slug);
+export default async function BlogDetail({ params }) {
+  // Await params as required in Next.js 15+ Server Components
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+  
+  const post = blogPosts.find((p) => toSlug(p.title) === slug);
 
   if (!post) {
     return (
-      <Container className="py-5 text-center">
+      <div className="container py-5 text-center">
         <h1 className="text-danger">Article Not Found</h1>
-        <Link href="/blog"><Button variant="primary" className="mt-3">Back to Blog</Button></Link>
-      </Container>
+        <a href="/blog" className="btn btn-primary mt-3">Back to Blog</a>
+      </div>
     );
   }
 
   return (
-    <section className="py-5 bg-light min-vh-100">
-      <Container>
-        {/* Back Button */}
-        <Link href="/blog" className="text-decoration-none text-muted mb-4 d-inline-block">
-          &larr; Back to All Articles
-        </Link>
+    <main className="bg-light pb-5 pt-4" style={{ minHeight: '100vh' }}>
+      <div className="container">
+        {/* Back Link */}
+        <div className="mb-4">
+          <a href="/blog" className="text-decoration-none text-muted fw-bold" style={{ fontSize: '0.9rem' }}>
+            &larr; BACK TO ALL ARTICLES
+          </a>
+        </div>
         
-        <Card className="p-4 shadow-lg border-0" data-aos="fade-up">
-            
+        <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
             {/* Hero Image */}
-            <img 
-                src={post.img} 
-                alt={post.title} 
-                className="img-fluid rounded shadow-sm w-100 mb-4"
-                style={{ maxHeight: '450px', objectFit: 'cover' }}
-            />
+            <div style={{ height: '450px', width: '100%', overflow: 'hidden' }}>
+                <img 
+                    src={post.img} 
+                    alt={post.title} 
+                    className="w-100 h-100"
+                    style={{ objectFit: 'cover' }}
+                />
+            </div>
 
-            <Row className="justify-content-center">
-                <Col lg={10}>
-                    <small className="text-primary fw-bold text-uppercase tracking-widest">{post.date}</small>
-                    <h1 className="fw-bold display-5 mb-3">{post.title}</h1>
-                    <p className="lead text-secondary mb-5">{post.excerpt}</p>
-                    
-                    {/* The Full Content - Using dangerouslySetInnerHTML for the rich text from our object */}
-                    <div 
-                        className="blog-content text-dark mb-5 lh-lg" 
-                        dangerouslySetInnerHTML={{ __html: post.content }}
-                    />
+            <div className="card-body p-4 p-lg-5 bg-white">
+                <div className="row justify-content-center">
+                    <div className="col-lg-10">
+                        <small className="fw-bold text-uppercase tracking-widest" style={{ color: '#00A389' }}>{post.date}</small>
+                        <h1 className="fw-bold display-5 mt-2 mb-4" style={{ color: '#1E3140' }}>{post.title}</h1>
+                        <p className="lead text-secondary mb-5 fw-medium" style={{ borderLeft: '5px solid #00A389', paddingLeft: '20px' }}>
+                            {post.excerpt}
+                        </p>
+                        
+                        {/* Blog Content */}
+                        <div 
+                            className="blog-post-body text-dark lh-lg" 
+                            style={{ fontSize: '1.1rem' }}
+                            dangerouslySetInnerHTML={{ __html: post.content }}
+                        />
 
-                    <div className="text-center border-top pt-4">
-                         <Link href="/contact">
-                            <Button variant="primary" size="lg" className="rounded-pill px-5">Contact Sales for Bulk Inquiry</Button>
-                        </Link>
+                        <div className="text-center border-top mt-5 pt-5">
+                            <a href="/contact" className="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow-sm" style={{ backgroundColor: '#00A389', borderColor: '#00A389' }}>
+                                Contact Sales for Bulk Inquiry
+                            </a>
+                        </div>
                     </div>
-                </Col>
-            </Row>
-        </Card>
-      </Container>
-      
-      <style jsx>{`
-        .blog-content :global(p) { margin-bottom: 1.5rem; }
-        .blog-content :global(ul) { margin-bottom: 1.5rem; }
-        .blog-content :global(li) { margin-bottom: 0.5rem; }
-      `}</style>
-    </section>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .blog-post-body p { margin-bottom: 1.8rem; }
+        .blog-post-body h3 { font-weight: 800; margin-top: 2.5rem; margin-bottom: 1rem; }
+        .blog-post-body ul { margin-bottom: 2rem; }
+        .blog-post-body li { margin-bottom: 0.8rem; }
+        .rounded-4 { border-radius: 2rem !important; }
+      `}} />
+    </main>
   );
 }

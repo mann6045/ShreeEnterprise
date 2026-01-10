@@ -26,9 +26,9 @@ export default function Contact() {
     setStatus({ type: '', message: '' });
 
     // These IDs come from your EmailJS Dashboard
-    const SERVICE_ID = "service_b6fv426";   // Replace with yours
-    const TEMPLATE_ID = "template_o6ko9m9"; // Replace with yours
-    const PUBLIC_KEY = "-2zPK85OCFcNB5-5q";   // Replace with yours
+    const SERVICE_ID = "service_b6fv426";  
+    const TEMPLATE_ID = "template_o6ko9m9"; 
+    const PUBLIC_KEY = "-2zPK85OCFcNB5-5q";   
 
     try {
       // Fallback check if script hasn't loaded or keys aren't set
@@ -195,7 +195,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="small text-teal fw-bold mb-1 text-uppercase tracking-widest">Official Email</p>
-                    <p className="fs-5 fw-bold mb-0">sales@shree-enterprise.com</p>
+                    <p className="fs-5 fw-bold mb-0">sales@shreeenterpriseglobal.com</p>
                   </div>
                 </div>
 
