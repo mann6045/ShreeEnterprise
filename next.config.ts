@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-output: 'export', // This tells Next.js to build a static site
+  output: 'export',
+  trailingSlash: true, // This tells Next.js to create folders with index.html files
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
 };
 
